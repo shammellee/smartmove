@@ -1,0 +1,28 @@
+#! /usr/bin/env bash
+# vim: filetype=sh syntax=sh
+
+#┌────────────┐
+#│ SMART MOVE │
+#└────────────┘
+# Synopsis: smv <source> [...] <destination-directory>
+# Description: Smart move copies <source> to <destination-directory> and, if
+# the copy was successful without error, deletes (unlinks) <source>.
+
+SCRIPT_NAME=${0##*/}
+MIN_ARGS=2
+
+if [[ $# -lt $MIN_ARGS ]] || [[ ! -d ${@:$#} ]]
+then
+  echo -e "Usage: ${SCRIPT_NAME} <source> [...] <destination-directory>"
+  exit 1
+fi
+
+DESTINATION="${@:$#}"
+
+while [ $# -gt 1 ]
+do
+  echo "$1"
+  cp -iR "$1" "${DESTINATION}"/ && rm -rf "$1"
+  shift
+done
+

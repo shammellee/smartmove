@@ -21,7 +21,6 @@ DESTINATION="${@:$#}"
 
 while [ $# -gt 1 ]
 do
-  echo "$1"
   cp -iR "$1" "${DESTINATION}"/ && rm -rf "$1"
   shift
 done
